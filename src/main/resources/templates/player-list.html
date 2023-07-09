@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+	<meta charset="UTF-8">
+	<title th:text="#{playerListTitle}"></title>
+</head>
+
+<body>
+	<h2 th:text="#{playerListSecondTitle}"></h2>
+	<p th:text="#{listOfPlayersText}"></p>
+	<div th:unless="${#lists.isEmpty(players)}">
+		<table class="box">
+			<tr>
+				<th></th>
+				<th th:text="#{idLabel}"></th>
+				<th th:text="#{firstName}"></th>
+				<th th:text="#{lastName}"></th>
+				<th th:text="#{age}"></th>
+				<th th:text="#{position}"></th>
+				<th th:text="#{teamInfoLabel}"></th>
+			</tr>
+			<tr th:each="p : ${players}">
+				<td><a th:href="'/player/delete/' + ${p.id}"><img src="/img/delete.png" width="20"></a></td>
+				<td th:text="${p.id}"></td>
+				<td th:text="${p.playerFirstName}"></td>
+				<td th:text="${p.playerLastName}"></td>
+				<td th:text="${p.age}"></td>
+				<td th:text="${p.position}"></td>
+				<td><a th:href="'/player/' + ${p.id}"><img src="/img/arrow.png" width="30"></a></td>
+			</tr>
+		</table>
+	</div>
+	
+	<div th:if="${#lists.isEmpty(players)}">
+		<p class="small-italic" th:text="#{noPlayerDataText}"></p>
+	</div>
+	
+	<p><a href="/list-players" th:text="#{playerListLinkLabel}"></a> | <a href="/new-player" th:text="#{newPlayerLinkLabel}"></a></p>
+</body>
+
+</html>

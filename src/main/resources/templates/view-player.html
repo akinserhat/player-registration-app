@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+	<meta charset="UTF-8">
+	<title th:text="${player.fullName}"></title>
+</head>
+
+<body>
+	<h2 th:text="${player.fullName}"></h2>
+	<table>
+		<tr>
+			<td th:text="#{fullNameLabel}"></td>
+			<td th:text="${player.fullName}"></td>
+		</tr>
+		<tr>
+			<td th:text="#{dateOfBirthLabel}"></td>
+			<td>				
+				<span th:text="${#temporals.format(player.dateOfBirth, 'dd-MM-yyyy')}"></span>
+				<span th:if="${#strings.isEmpty(player.dateOfBirth)}" th:text="'---'"></span>
+			</td>
+		</tr>
+	</table>
+
+	<p><b th:text="#{teamInfo}"></b></p>
+	
+	<div th:unless="${#lists.isEmpty(player.teams)}">
+		<table>
+			<tr th:each="t : ${player.teams}">
+				<td><a th:href="'/player/team/delete/' + ${player.id} + '/' + ${t.id}"><img src="/img/delete.png" width="20"></a></td>
+				<td th:text="${t.teamName}"></td>
+			</tr>
+		</table>
+	</div>
+	
+	<div th:if="${#lists.isEmpty(player.teams)}">
+		<p class="small-italic" th:text="#{playerHasNoClubText}"></p>
+	</div>
+	
+	<h4 th:text="#{addNewTeamText}"></h4>
+	<form action="/player/team/add" method="post" th:object="${team}">
+		<input type="text" th:field="*{teamName}">
+		<input type="hidden" th:field="*{player.id}">
+		<input type="submit" th:value="#{submitButtonLabel}">
+		<span th:errors="*{teamName}" class="error"></span>
+	</form>
+	
+	<p><a href="/list-players" th:text="#{playerListLinkLabel}"></a> | <a href="/new-player" th:text="#{newPlayerLinkLabel}"></a></p>
+</body>
+
+</html>

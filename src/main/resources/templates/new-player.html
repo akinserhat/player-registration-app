@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+	<meta charset="UTF-8">
+	<title th:text="#{title}"></title>
+</head>
+
+<body>
+	<h2 th:text="#{enterNewPlayerText}"></h2>
+	<p th:text="#{fillTheFormText}"></p>
+	<form action="/add-player" method="post" th:object="${player}">
+		<table>
+			<tr>
+				<td th:text="#{playerFirstNameLabel}"></td>
+				<td><input type="text" th:field="*{playerFirstName}"></td>
+				<td th:errors="*{playerFirstName}" class="error"></td>
+			</tr>
+			<tr>
+				<td th:text="#{playerLastNameLabel}"></td>
+				<td><input type="text" th:field="*{playerLastName}"></td>
+				<td th:errors="*{playerLastName}" class="error"></td>
+			</tr>
+			<tr>
+				<td th:text="#{dateOfBirthLabel}"></td>
+				<td><input type="text" th:field="*{dateOfBirth}"></td>
+				<td th:errors="*{dateOfBirth}" class="error"></td>
+			</tr>
+			<tr>
+				<td th:text="#{ageLabel}"></td>
+				<td><input type="number" th:field="*{age}"></td>
+				<td th:errors="*{age}" class="error"></td>
+			</tr>
+			<tr>
+				<td th:text="#{positionLabel}"></td>
+				<td><input type="text" th:field="*{position}"></td>
+				<td th:errors="*{position}" class="error"></td>
+			</tr>
+			<tr>
+				<td colspan="5"><input type="submit" th:value="#{submitButtonLabel}"></td>
+			</tr>
+		</table>
+	</form>
+	<p><a href="/list-players" th:text="#{playerListLinkLabel}"></a></p>
+	<p><br></p>
+	<p><a href="new-player.html?language=tr"><img src="/img/tr.png" width="30"></a> | <a href="new-player.html?language=en"><img src="/img/en.png" width="30"></a></p>
+
+</body>
+
+</html>
